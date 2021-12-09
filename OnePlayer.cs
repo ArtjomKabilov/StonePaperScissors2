@@ -20,7 +20,7 @@ namespace StonePaperScissors
         RadioButton rb2;
         RadioButton rb3;
         public int numb;
-
+        MainMenu mm;
         public OnePlayer()
         {
             this.Height = 700;
@@ -74,8 +74,29 @@ namespace StonePaperScissors
             bt2.MouseClick += Bt2_MouseClick;
             bt2.Text = "Bot liigub";
 
+            mm = new MainMenu();
+            MenuItem menuFile = new MenuItem("File");
+            menuFile.MenuItems.Add("Exit", new EventHandler(menuFile_Exit_Select));
+            menuFile.MenuItems.Add("Back", new EventHandler(menuFile_Back_Select));
+            this.Menu = mm;
+            mm.MenuItems.Add(menuFile);
 
         }
+        void menuFile_Exit_Select(object sender, System.EventArgs e)
+        {
+
+            this.Close();
+
+        }
+        void menuFile_Back_Select(object sender, System.EventArgs e)
+        {
+            Form1 fp = new Form1();
+            fp.Show();
+            fp.WindowState = FormWindowState.Minimized;
+            fp.WindowState = FormWindowState.Normal;
+            this.Hide();
+        }
+    
 
         public void Bt2_MouseClick(object sender, MouseEventArgs e)
         {
@@ -120,7 +141,7 @@ namespace StonePaperScissors
             {
 
                 var answer = MessageBox.Show(
-                "Ты победил" + numb.ToString(),
+                "Ты победил",
                 "Сообщение",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information,
@@ -150,7 +171,7 @@ namespace StonePaperScissors
             else if (rb1.Checked == true && numb == 0 || rb2.Checked == true && numb == 1 || rb3.Checked == true && numb == 2)
             {
                 var answer = MessageBox.Show(
-                "Ничья" + numb.ToString(),
+                "Ничья",
                 "Сообщение",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information,
@@ -179,7 +200,7 @@ namespace StonePaperScissors
             else
             {
                 var answer = MessageBox.Show(
-                "Ты проиграл, бот выиграл" + numb.ToString(),
+                "Ты проиграл, бот выиграл",
                 "Сообщение",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information,

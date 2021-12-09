@@ -12,13 +12,13 @@ namespace StonePaperScissors
 {
     public partial class TwoPlayers : Form
     {
-        //PictureBox pb;
         PictureBox pbt, pbt2;
         Button bt;
         Button bt2;
         Button bt3;
         public int numb;
         public int num;
+        MainMenu mm;
         public TwoPlayers()
         {
             this.Height = 700;
@@ -36,36 +36,51 @@ namespace StonePaperScissors
             pbt2.SizeMode = PictureBoxSizeMode.AutoSize;
 
 
-
+            this.Controls.Add(pbt2);
             this.Controls.Add(pbt);
 
             bt = new Button();
-            bt.Location = new Point(500, 300);
+            bt.Location = new Point(200, 500);
             bt.Size = new Size(100, 50);
             bt.Text = "Alusta";
             this.Controls.Add(bt);
             bt.MouseClick += Bt_MouseClick;
             bt3 = new Button();
-            bt3.Location = new Point(500, 300);
+            bt3.Location = new Point(200, 300);
             bt3.Size = new Size(100, 50);
             bt3.Text = "Esimene mängija liigub";
             this.Controls.Add(bt3);
             bt3.MouseClick += Bt3_MouseClick;
 
             bt2 = new Button();
-            bt2.Location = new Point(300, 300);
+            bt2.Location = new Point(500, 300);
             bt2.Size = new Size(100, 50);
             this.Controls.Add(bt2);
             bt2.MouseClick += Bt2_MouseClick;
             bt2.Text = "teine mängija liigub";
 
-            
-
-            
-
+            mm = new MainMenu();
+            MenuItem menuFile = new MenuItem("File");
+            menuFile.MenuItems.Add("Exit", new EventHandler(menuFile_Exit_Select));
+            menuFile.MenuItems.Add("Back", new EventHandler(menuFile_Back_Select));
+            this.Menu = mm;
+            mm.MenuItems.Add(menuFile);
 
         }
+        void menuFile_Exit_Select(object sender, System.EventArgs e)
+        {
 
+            this.Close();
+
+        }
+        void menuFile_Back_Select(object sender, System.EventArgs e)
+        {
+            Form1 fp = new Form1();
+            fp.Show();
+            fp.WindowState = FormWindowState.Minimized;
+            fp.WindowState = FormWindowState.Normal;
+            this.Hide();
+        }
         private void Bt3_MouseClick(object sender, MouseEventArgs e)
         {
             List<string> list = new List<string>();
@@ -78,7 +93,7 @@ namespace StonePaperScissors
             Random rnd = new Random();
 
             num = rnd.Next(3);
-            pbt.ImageLocation = ($"../../images/{list[numb]}");
+            pbt2.ImageLocation = ($"../../images/{list[num]}");
             bt3.Hide();
         }
 
@@ -121,11 +136,11 @@ namespace StonePaperScissors
         {
 
 
-            if (num == 1 && numb == 2 || num == 2 && numb == 3 || num == 3 && numb == 1)
+            if (num == 0 && numb == 1 || num == 1 && numb == 2 || num == 2 && numb == 0)
             {
 
                 var answer = MessageBox.Show(
-                "Ты победил" + numb.ToString(),
+                "Ты победил",
                 "Сообщение",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information,
@@ -152,10 +167,10 @@ namespace StonePaperScissors
 
 
             }
-            else if (num == 1 && numb == 1 || num == 2 && numb == 2 || num == 3 && numb == 3)
+            else if (num == 0 && numb == 0 || num == 1 && numb == 1 || num == 2 && numb == 2)
             {
                 var answer = MessageBox.Show(
-                "Ничья" + numb.ToString(),
+                "Ничья",
                 "Сообщение",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information,
@@ -184,7 +199,7 @@ namespace StonePaperScissors
             else
             {
                 var answer = MessageBox.Show(
-                "Ты проиграл, бот выиграл" + numb.ToString(),
+                "Ты проиграл, бот выиграл",
                 "Сообщение",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Information,

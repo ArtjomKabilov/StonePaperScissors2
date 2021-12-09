@@ -13,6 +13,7 @@ namespace StonePaperScissors
     public partial class Form1 : Form
     {
         Button bt, bt2;
+        MainMenu mm;
         public Form1()
         {
             this.Height = 600;
@@ -26,6 +27,7 @@ namespace StonePaperScissors
             bt.Width = 100;
             this.Controls.Add(bt);
             bt.MouseClick += Bt_MouseClick;
+
             bt2 = new Button();
             bt2.Location = new Point(140, 240);
             bt2.Text = "2 mängijat";
@@ -33,10 +35,34 @@ namespace StonePaperScissors
             bt2.Width = 100;
             this.Controls.Add(bt2);
             bt2.MouseClick += Bt2_MouseClick;
+
+            mm = new MainMenu();
+            MenuItem menuFile = new MenuItem("File");
+            menuFile.MenuItems.Add("Exit", new EventHandler(menuFile_Exit_Select));
+            menuFile.MenuItems.Add("Back", new EventHandler(menuFile_Back_Select));
+            this.Menu = mm;
+            mm.MenuItems.Add(menuFile);
+
         }
+        void menuFile_Exit_Select(object sender, System.EventArgs e)
+        {
+
+            this.Close();
+
+        }
+        void menuFile_Back_Select(object sender, System.EventArgs e)
+        {
+            Form1 fp = new Form1();
+            fp.Show();
+            fp.WindowState = FormWindowState.Minimized;
+            fp.WindowState = FormWindowState.Normal;
+            this.Hide();
+        }
+    
 
         private void Bt2_MouseClick(object sender, MouseEventArgs e)
         {
+            
             this.Hide();
             TwoPlayers tp = new TwoPlayers();
             tp.Show();
@@ -45,8 +71,11 @@ namespace StonePaperScissors
         private void Bt_MouseClick(object sender, MouseEventArgs e)
         {
             this.Hide();
+            Name n = new Name();
+            n.Show();
+            /*this.Hide();
             OnePlayer op = new OnePlayer();
-            op.Show();
+            op.Show();*/
         }
     }
 }
